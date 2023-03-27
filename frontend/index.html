@@ -38,7 +38,7 @@
         <input type="text" id="password" placeholder="password">
         <input type="number" id="age" placeholder="age">
         <input type="text" id="city" placeholder="city">
-        <input type="boolean" id="married" placeholder="is_married">
+        <input type="text" id="married" placeholder="is_married">
         <button onclick="onSubmit()">Submit</button>
     </div>        
 </body>
@@ -56,7 +56,7 @@
         is_married:document.getElementById("married").value,
     }
     console.log(payload)
-    fetch("https://quaint-swimsuit-cow.cyclic.app/users/register",{
+    fetch("https://fluffy-khakis-wasp.cyclic.app/users/register",{
         method:"POST",
         headers:{
             "Content-type":"application/json"

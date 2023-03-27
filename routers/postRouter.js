@@ -37,24 +37,15 @@ postRouter.get('/top/:page',async(req,res)=>{
 })
 
 postRouter.post('/add',async(req,res)=>{
-    const token=req.headers.authorization
     try{
-        jwt.verify(token,'masai',async(err,decoded)=>{
-            if(decoded){
-                console.log(decoded.userId)
-                req.body.userID=decoded.userId
-                const payload=req.body
-                 const post=new PostModel(payload)
-                 await post.save()
-                 res.status(200).send({"msg":"New Post Added"})
-            }
-            else{
-                res.status(400).send({"msg":"Please Login"})
-            }
-        })
+        const payload=req.body
+        const post=new PostModel(payload)
+        await post.save()
+         res.status(200).send({"msg":"New Post Added"}) 
     }catch(err){
-        res.status(400).send({"msg":err.message})
-    }    
+        res.status(400).send({"msg":err.message}) 
+    }
+    
 })
 
 postRouter.patch('/update/:id',async(req,res)=>{
