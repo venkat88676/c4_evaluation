@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>addpost</title>
+    <style>
+        #form{
+            width: 30%;
+            margin: auto;
+            margin-top: 60px;
+            /* border: solid red; */
+        }
+        input{
+            width: 90%;
+            padding: 8px;
+            margin: 10px 0px 10px 0px;
+        }
+        nav{
+            background-color: rgb(60, 151, 151);
+            padding: 15px;
+            display: flex;
+            justify-content: space-around;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/login.html">Login</a>
+        <a href="/addpost.html">Add posts</a>
+        <a href="/index.html">Home</a>
+    </nav>     
+</body>
+</html>
+
+<script>
+    const posts=()=>{
+    fetch("https://fluffy-khakis-wasp.cyclic.app/posts",{
+        method:"GET",
+        headers:{
+            "Content-type":"application/json",
+            "Authorization":localStorage.getItem("token")
+        }
+    }).then(res=>res.json())
+    .then(res=>{
+        console.log(res)
+        for(let i=0;i<res.length;i++){
+                let title=document.createElement("h3")
+                let body=document.createElement("p")
+                let id=document.createElement("p")
+                let device=document.createElement("p")
+                let comments=document.createElement("p")
+                let del=document.createElement("button")
+                del.innerText="Delete"
+                del.addEventListener("click",()=>{
+                    deleteData(res[i]._id);
+                })
+                title.innerText=res[i].title
+                body.innerText=res[i].body
+                id.innerText=res[i].userID
+                device.innerText=res[i].device
+                comments.innerText=res[i].no_of_comments
+                
+                document.body.append(title,body,device,comments,id,del)
+            }
+    })
+    .catch(err=>console.log(err))
+    }
+    posts();
+    function deleteData(id){
+        console.log(id)
+        fetch(`https://fluffy-khakis-wasp.cyclic.app/posts/delete/${id}`,{
+            method:"DELETE",
+            headers:{
+                "Authorization":localStorage.getItem("token")
+            }
+        }).then(res=>res.json())
+        .then(res=>{
+            alert("Post Deleted")
+            console.log(res)
+        })
+        .catch(err=>console.log(err))
+    }
+
+</script>

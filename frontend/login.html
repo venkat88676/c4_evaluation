@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>signup</title>
+    <title>login</title>
     <style>
         #form{
             width: 30%;
@@ -27,43 +27,36 @@
 </head>
 <body>
     <nav>
-        <a href="/login.html">Login</a>
+        <a href="/index.html">Home</a>
         <a href="/addpost.html">Add posts</a>
         <a href="/posts.html">Posts</a>
     </nav>
     <div id="form">
-        <input type="text" id="name" placeholder="name">
         <input type="text" id="email" placeholder="email">
-        <input type="text" id="gender" placeholder="gender">
         <input type="text" id="password" placeholder="password">
-        <input type="number" id="age" placeholder="age">
-        <input type="text" id="city" placeholder="city">
-        <input type="text" id="married" placeholder="is_married">
-        <button onclick="onSubmit()">Submit</button>
+        <button onclick="onlogin()">login</button>
     </div>        
 </body>
 </html>
 
 <script>
-    const onSubmit=()=>{
+    const onlogin=()=>{
         let payload={
-        name:document.getElementById("name").value,
         email:document.getElementById("email").value,
-        gender:document.getElementById("gender").value,
-        password:document.getElementById("password").value,
-        age:document.getElementById("age").value,
-        city:document.getElementById("city").value,
-        is_married:document.getElementById("married").value,
+        password:document.getElementById("password").value
     }
     console.log(payload)
-    fetch("https://fluffy-khakis-wasp.cyclic.app/users/register",{
+    fetch("https://fluffy-khakis-wasp.cyclic.app/users/login",{
         method:"POST",
         headers:{
             "Content-type":"application/json"
         },
         body: JSON.stringify(payload)
     }).then(res=>res.json())
-    .then(res=>console.log(res))
+    .then(res=>{
+        localStorage.setItem("token",res.token)
+        console.log(res)
+    })
     .catch(err=>console.log(err))
     }
 

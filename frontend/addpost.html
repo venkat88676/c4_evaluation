@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>addpost</title>
+    <style>
+        #form{
+            width: 30%;
+            margin: auto;
+            margin-top: 60px;
+            /* border: solid red; */
+        }
+        input{
+            width: 90%;
+            padding: 8px;
+            margin: 10px 0px 10px 0px;
+        }
+        nav{
+            background-color: rgb(60, 151, 151);
+            padding: 15px;
+            display: flex;
+            justify-content: space-around;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/login.html">Login</a>
+        <a href="/index.html">Home</a>
+        <a href="/posts.html">Posts</a>
+    </nav>
+    <div id="form">
+        <input type="text" id="title" placeholder="title">
+        <input type="text" id="body" placeholder="body">
+        <input type="text" id="device" placeholder="device">
+        <input type="number" id="comments" placeholder="comments">
+        <button onclick="onadd()">Add</button>
+    </div>        
+</body>
+</html>
+
+<script>
+    const onadd=()=>{
+        let payload={
+        title:document.getElementById("title").value,
+        body:document.getElementById("body").value,
+        device:document.getElementById("device").value,
+        no_of_comments:document.getElementById("comments").value
+    }
+    console.log(payload)
+    fetch("https://fluffy-khakis-wasp.cyclic.app/posts/add",{
+        method:"POST",
+        headers:{
+            "Content-type":"application/json",
+            "Authorization":localStorage.getItem("token")
+        },
+        body: JSON.stringify(payload)
+    }).then(res=>res.json())
+    .then(res=>{
+        console.log(res)
+    })
+    .catch(err=>console.log(err))
+    }
+
+</script>
