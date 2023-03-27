@@ -5,10 +5,11 @@ const noteSchema=mongoose.Schema({
     body:String,
     device:String,
     no_of_comments:Number,
+    userID:String
 },{
     versionKey:false
 })
 
-const NoteModel=mongoose.model("note",noteSchema)
+const PostModel=mongoose.model("posts",noteSchema)
 
-module.exports={NoteModel}
+module.exports={PostModel}
